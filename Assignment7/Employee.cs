@@ -42,12 +42,83 @@ namespace Assignment7
 
     public class Employee
     {
-        public int ID { get; set; }
-        public string Name { get; set; }
-        public double Salary { get; set; }
-        public HiringDate HireDate { get; set; }
-        public Gender Gender { get; set; }
-        public SecurityLevel SecurityLevel { get; set; }
+        public int id;
+        private string name;
+        private double salary;
+        private HiringDate hireDate;
+        private Gender gender;
+        private SecurityLevel securityLevel;
+
+        public int ID
+        {
+            get => id;
+            set
+            {
+                if (value <= 0)
+                {
+                    id = -1;
+                }
+                    
+                id = value;
+            }
+        }
+
+        public string Name
+        {
+            get => name;
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    name = "Null Name";
+                }
+                    
+                name = value;
+            }
+        }
+
+        public Gender Gender
+        {
+            get => gender;
+            set
+            {
+                if (IsValidGender(value))
+                {
+                    gender = value;
+                }
+                else
+                {
+                    gender = Gender.M; //default value
+                }
+            }
+        }
+
+        public double Salary
+        {
+            get => salary;
+            set
+            {
+                if (value < 0) { salary = 0; }
+                salary = value;
+            }
+        }
+
+        public HiringDate HireDate
+        {
+            get => hireDate;
+            set => hireDate = value ?? new HiringDate(0,0,0);
+        }
+
+        public SecurityLevel SecurityLevel
+        {
+            get => securityLevel;
+            set => securityLevel = value;
+        }
+
+        public static bool IsValidGender(Gender gender)
+        {
+            return Enum.IsDefined(typeof(Gender), gender);
+        }
 
         public Employee(int id, string name, Gender gender, SecurityLevel securityLevel, double salary, HiringDate hireDate)
         {
@@ -63,6 +134,8 @@ namespace Assignment7
         {
             return $"ID: {ID}, Name: {Name}, Gender: {Gender}, Security Level: {SecurityLevel}, Salary: {String.Format("{0:C}", Salary)}, Hire Date: {HireDate}";
         }
+
+
 
     }
 }
