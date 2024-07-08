@@ -11,7 +11,8 @@ namespace Assignment7
         Guest,
         Developer,
         Secretary,
-        DBA
+        DBA,
+        SecurityOfficer
     }
 
     public enum Gender
